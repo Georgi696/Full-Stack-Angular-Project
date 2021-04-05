@@ -20,6 +20,12 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { LeaderService } from "./services/leader.service";
+import { LoginComponent } from './login/login.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -30,7 +36,8 @@ import { LeaderService } from "./services/leader.service";
     FooterComponent,
     AboutComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,9 +48,17 @@ import { LeaderService } from "./services/leader.service";
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [DishService,LeaderService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    LoginComponent
+  ]
 })
 export class AppModule { }
