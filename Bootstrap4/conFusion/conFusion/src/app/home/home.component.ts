@@ -16,16 +16,16 @@ import { Leader } from '../sharedFolder/leader';
 })
 export class HomeComponent implements OnInit {
 
-  dish: Dish;
+  public dish: Dish;
   promotion: Promotion;
   leader: Leader;
   
   constructor(private dishService: DishService, private promoService: PromotionService, private leaderService: LeaderService) { }
 
   ngOnInit(): void {
-    this.dish = this.dishService.getFeauteredDish();
-    this.promotion = this.promoService.getFeuturedPromo();
-    this.leader = this.leaderService.getFeuturedLeaders();
+    this.dishService.getFeaturedDish().subscribe(dish=>this.dish=dish);
+    this.promoService.getFeuturedPromo().subscribe(promotion=>this.promotion=promotion);
+    this.leaderService.getFeuturedLeaders().subscribe(Leader=>this.leader=this.leader);
   }
 
 }
