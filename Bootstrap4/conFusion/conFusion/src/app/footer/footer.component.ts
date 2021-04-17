@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-footer',
@@ -8,13 +7,9 @@ import { Location } from "@angular/common";
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private loc: Location) { }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  goBack(){
-    this.loc.back();
+  ngOnInit() {
   }
 
 }

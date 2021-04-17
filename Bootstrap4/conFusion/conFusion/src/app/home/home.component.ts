@@ -1,31 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { DishdetailComponent } from '../dishdetail/dishdetail.component';
+import { Component, OnInit, Inject } from '@angular/core';
+
+import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
+import { Promotion } from '../shared/promotion';
 import { PromotionService } from '../services/promotion.service';
-import { Dish } from '../sharedFolder/dish';
-import { DISHES } from '../sharedFolder/dishes';
-import { Promotion } from '../sharedFolder/promotion';
-import { LEADERS } from "../sharedFolder/leaders";
-import { LeaderService } from '../services/leader.service';
-import { Leader } from '../sharedFolder/leader';
+import { Leader } from '../shared/leader';
+import { LeadersService } from '../services/leader.service';
+
+import { flyInOut, expand } from '../animations/app.animation';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@flyInOut]': 'true',
+    style: 'display: block;'
+  },
+  animations: [flyInOut(), expand()]
 })
 export class HomeComponent implements OnInit {
-
-  public dish: Dish;
+  dish: Dish;
   promotion: Promotion;
   leader: Leader;
-  
-  constructor(private dishService: DishService, private promoService: PromotionService, private leaderService: LeaderService) { }
+  dishErrMess: string;
+  leaderErrMess: string;
+  promotionErrMess: string;
 
-  ngOnInit(): void {
-    this.dishService.getFeaturedDish().subscribe(dish=>this.dish=dish);
-    this.promoService.getFeuturedPromo().subscribe(promotion=>this.promotion=promotion);
-    this.leaderService.getFeuturedLeaders().subscribe(Leader=>this.leader=this.leader);
+  constructor(
+    private dishservice: DishService,
+    private promotionservice: PromotionService,
+    private leadersService: LeadersService,
+    @Inject('BaseURL') private baseURL
+  ) {}
+
+  ngOnInit() {
+    this.dishservice
+      .getFeaturedDish()
+      .subscribe(featuredDish => (this.dish = featuredDish), errmess => (this.dishErrMess = <any>errmess));
+    this.promotionservice
+      .getFeaturedPromotion()
+      .subscribe(promo => (this.promotion = promo), errmess => (this.promotionErrMess = <any>errmess));
+    this.leadersService
+      .getFeaturedLeader()
+      .subscribe(leader => (this.leader = leader), errmess => (this.leaderErrMess = <any>errmess));
   }
-
 }

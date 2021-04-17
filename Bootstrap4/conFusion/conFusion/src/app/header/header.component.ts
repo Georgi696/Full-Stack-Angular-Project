@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from "@angular/common";
-import { LoginComponent } from '../login/login.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -9,18 +8,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  constructor(public dialog: MatDialog) {}
 
-  constructor(private location: Location, public logForm: MatDialog) { }
+  ngOnInit() {}
 
-  ngOnInit(): void {
+  openLoginForm() {
+    this.dialog.open(LoginComponent, { width: '500px', height: '450px' });
   }
-
-  goBack(){
-    this.location.back()
-  }
-
-  openLoginForm(){
-    this.logForm.open(LoginComponent, {width:'500px',height:"450px"});
-  }
-
 }
